@@ -207,6 +207,9 @@ def adsb_to_cot_xml(  # NOQA pylint: disable=too-many-locals,too-many-branches,t
     _, callsign = aircot.set_name_callsign(icao_hex, reg, craft_type, flight, known_craft)
     cat = aircot.set_category(cat, known_craft)
     cot_type = aircot.set_cot_type(icao_hex, cat, flight, known_craft)
+    # Quick hack to force icon of unknown platforms as fixed wing
+    if cot_type == "a-n-A-C":
+        cot_type = "a-n-a-C-F"
 
     point: etree.Element = etree.Element("point")
     point.set("lat", str(lat))
